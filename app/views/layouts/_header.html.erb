@@ -1,0 +1,88 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+
+      <!-- Bookersのリンク -->
+      <%= link_to "Bookers", root_path, class: "navbar-brand" %>
+
+      <!-- ナビゲーションバー -->
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+
+          <!-- ログイン状態の場合 -->
+          <% if user_signed_in? %>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <!-- Homeのリンク -->
+              <li class="nav-item text-light">
+                <%= link_to user_path(current_user), class: 'nav-link text-light' do %>
+                  <i class="fas fa-home"></i>
+                    <span>Home</span>
+                <% end %>
+              </li>
+
+              <!-- Usersのリンク -->
+              <li class="nav-item text-light">
+                <%=  link_to users_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-users"></i>
+                  <span>Users</span>
+                <% end %>
+              </li>
+
+              <!-- Booksのリンク -->
+              <li class="nav-item text-ligh">
+                <%=  link_to books_path , class: 'nav-link text-light' do %>
+                  <i class="fas fa-book-open"></i>
+                  <span>Books</span>
+                <% end %>
+              </li>
+
+              <!-- Log outのリンク -->
+              <li class="nav-item text-light">
+                <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
+                  <i class="fas fa-sign-out-alt"></i>
+                  <span>Log out</span>
+                <% end %>
+              </li>
+            </div>
+
+          <!-- ログイン前の状態の場合 -->
+          <% else %>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <!-- Homeのリンク -->
+              <li class="nav-item text-light">
+                <%= link_to root_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-home"></i>
+                  <span>Home</span>
+                <% end %>
+              </li>
+
+              <!-- Aboutのリンク -->
+              <li class="nav-item text-light">
+                <%= link_to about_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-link"></i>
+                  <span>About</span>
+                <% end %>
+              </li>
+
+              <!-- Sign upのリンク -->
+              <li class="nav-item text-light">
+                <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-user-plus"></i>
+                  <span>Sign up</span>
+                <% end %>
+              </li>
+
+              <!-- Log inのリンク -->
+              <li class="nav-item text-light">
+                <%= link_to new_user_session_path , class: 'nav-link text-light' do %>
+                  <i class="fas fa-sign-in-alt"></i>
+                  <span>Log in</span>
+                <% end %>
+              </li>
+            </div>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

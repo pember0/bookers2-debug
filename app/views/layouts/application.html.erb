@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2Ver2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- FontAwesomeの導入、～fontawesome.com/の後ろは自身のKitCodeのIDが入ります  -->
+    <script src="https://kit.fontawesome.com/3643740517.js" crossorigin="anonymous"></script>
+
+    <!-- stylesheet_pack_tagの場合は、app/javascript 配下のファイルを参照する -->
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <!-- render [部分テンプレートファイルの指定], [ローカル変数]:[渡す値] -->
+    <%= render 'layouts/header' %>
+      <main>
+        <p id="notice"><%= notice %></p>
+        <%= yield %>
+      </main>
+    <%= render 'layouts/footer' %>
+  </body>
+</html>
