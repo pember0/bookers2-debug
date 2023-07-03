@@ -12,10 +12,13 @@ class User < ApplicationRecord
   # # dependent: :destroyは、has_manyで使えるオプションです。 1:Nの関係において、
   # 「1」のデータが削除された場合、関連する「N」のデータも削除される設定
   has_many :books, dependent: :destroy
+  has_many :favorites, dependent: :destroy      # いいね機能
+  has_many :book_comment, dependent: :destroy   # コメント機能
 
   # User モデルに対して、Book モデルが 1:N になるよう関連付け
   # booksという名前でActiveStorageでプロフィール画像を保存できるように設定
   has_one_attached :profile_image
+
 
   # validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
 

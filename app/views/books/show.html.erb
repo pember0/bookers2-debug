@@ -11,23 +11,24 @@
     <div class='col-md-8 offset-md-1'>
   		<h2>Book detail</h2>
   		<table class='table'>
-  		  <!-- userの詳細画面へのリンク-->
-        <%= link_to user_path(@book.user) do %>
+
     		  <tr>
             <td>
-              <!-- 画像 -->
-              <%= image_tag @book.user.get_profile_image(100, 100) %><br>
-                <%= @book.user.name %>
+              <!-- userの詳細画面へのリンク-->
+              <%= link_to user_path(@book.user) do %>
+                  <!-- 画像 -->
+                  <%= image_tag @book.user.get_profile_image(100, 100) %><br>
+                  <%= @book.user.name %>
               <% end %>
             </td>
-  
+
             <!-- bookの詳細画面へのリンク-->
             <td>
               <%= link_to book_path(@book) do %>
                 <%= @book.title %>
               <% end %>
             </td>
-  
+
             <td><%= @book.body %></td>
               <td>
                 <% if @book.user == current_user %>
@@ -35,9 +36,48 @@
                     <%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
                 <% end %>
               </td>
-            
-        </tr>
-      </table>
+
+            <td>
+              <!-- 「いいね」機能の追加 -->
+              <% if @book.favorited_by?(current_user) %>
+                <p>
+                  <%= link_to book_favorites_path(@book), method: :delete do %>
+                    ♥<%= @book.favorites.count %> いいね
+                  <% end %>
+                </p>
+              <% else %>
+                <p>
+                  <%= link_to book_favorites_path(@book), method: :post do %>
+                    ♡<%= @book.favorites.count %> いいね
+                  <% end %>
+                </p>
+              <% end %>
+            </td>
+            <td>
+               <p>コメント件数：<%= @book.book_comment.count %></p>
+            </td>
+          </tr>
+        </table>
+            <!-- コメント機能 -->
+            <div>
+              <% @book.book_comment.each do |book_comment| %>
+                <p>
+                  <%= image_tag book_comment.user.get_profile_image(100,100) %>
+                  <%= book_comment.user.name %>
+                  <%= book_comment.comment %>
+                  <!-- コメント削除機能 -->
+                  <% if book_comment.user == current_user %>
+                    <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete %>
+                  <% end %>
+                </p>
+              <% end %>
+            </div>
+            <div>
+              <%= form_with model: [@book, @book_comment] do |f| %>
+                <%= f.text_area :comment, rows: '5' , placeholder: "コメントをここに" %><br>
+                <%= f.submit "送信" %>
+              <% end %>
+            </div>
     </div>
   </div>
 </div>

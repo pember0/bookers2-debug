@@ -4,7 +4,7 @@
       <th></th>
       <th>Title</th>
       <th>Opinion</th>
-      <th colspan="3"></th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
@@ -25,6 +25,27 @@
           <% end %>
         </td>
         <td><%= book.body %></td>
+
+        <td>
+          <!-- 「いいね」機能の追加 -->
+          <% if book.favorited_by?(current_user) %>
+          <p>
+            <%= link_to book_favorites_path(book), method: :delete do %>
+              ♥<%= book.favorites.count %>
+            <% end %>
+          </p>
+          <% else %>
+          <p>
+            <%= link_to book_favorites_path(book), method: :post do %>
+              ♡<%= book.favorites.count %>
+            <% end %>
+          </p>
+          <% end %>
+        </td>
+        <td>
+          <!-- コメントの件数表示 -->
+          <p>コメント数：<%= book.book_comment.count %></p>
+        </td>
       </tr>
     <% end %>
   </tbody>
