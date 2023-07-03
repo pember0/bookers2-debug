@@ -1,9 +1,23 @@
 <div class='container'>
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <!--更新画面-->
   		<h1>Editing Book</h1>
+  		<!--バリデーションによるエラーメッセージ設定 -->
+      <% if @book.errors.any? %>
+        <%= @book.errors.count %>error prohibited this obj from being saved:
+        <ul>
+          <% @book.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
   		<%= render 'form', book: @book %>
-  		<%= link_to 'Show', @book %> |
-  		<%= link_to 'Back', books_path, class: "back" %>
+
+  		<!--詳細画面のリンク -->
+      <%= link_to "Show", book_path(@book.id) %>
+      <a> | </a>
+      <!--一覧画面のリンク -->
+      <%= link_to "Back", books_path %>
   </div>
 </div>

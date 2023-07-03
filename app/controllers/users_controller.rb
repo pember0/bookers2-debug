@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   def edit
     # アクセスを制限設定（private以降の行に内容を設定）
-    # is_matching_login_user
+    is_matching_login_user
     @user = User.find(params[:id])
   end
 
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)    # ユーザーのアップデート
       # ユーザのプロフィール更新が成功したとき:フラッシュメッセージ
-      redirect_to users_path, notice: "You have updated user successfully."
+      redirect_to user_path(current_user), notice: "You have updated user successfully."
     else
       render :edit
     end
@@ -39,9 +39,9 @@ class UsersController < ApplicationController
   end
 
   # 他のユーザーからのアクセスを制限設定
-  def ensure_correct_user
-    @user = User.find(params[:id])
-    unless @user == current_user
+  def is_matching_login_user
+    user = User.find(params[:id])
+    unless user.id == current_user.id
       redirect_to user_path(current_user)
     end
   end

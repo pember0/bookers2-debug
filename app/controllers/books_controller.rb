@@ -63,9 +63,10 @@ class BooksController < ApplicationController
   end
 
   def is_matching_login_user
-    user = User.find(params[:id])
+    book= Book.find(params[:id])
+    user= book.user
     unless user.id == current_user.id
-      redirect_to post_images_path
+      redirect_to books_path
     end
   end
 
