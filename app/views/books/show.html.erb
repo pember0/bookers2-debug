@@ -54,7 +54,7 @@
               <% end %>
             </td>
             <td>
-               <p>コメント件数：<%= @book.book_comment.count %></p>
+               <p>コメント数：<%= @book.book_comment.count %></p>
             </td>
           </tr>
         </table>
@@ -63,13 +63,15 @@
               <% @book.book_comment.each do |book_comment| %>
                 <p>
                   <%= image_tag book_comment.user.get_profile_image(100,100) %>
-                  <%= book_comment.user.name %>
                   <%= book_comment.comment %>
                   <!-- コメント削除機能 -->
                   <% if book_comment.user == current_user %>
                     <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete %>
                   <% end %>
                 </p>
+                <%= link_to user_path(book_comment.user) do %>
+                  <%= book_comment.user.name %>
+                <% end %>
               <% end %>
             </div>
             <div>
