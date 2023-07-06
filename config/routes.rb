@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   devise_for :users
   get "/home/about" => "homes#about", as: "about"   # aboutをルートに追加
 
+  get "search" => "searches#search" #検索
+
   resources :books, only: [:new, :index,:show,:edit,:create,:destroy,:update] do
     # いいね機能のルーティングを設定
     resource :favorites, only: [:create, :destroy]

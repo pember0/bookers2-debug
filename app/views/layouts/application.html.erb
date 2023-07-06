@@ -19,6 +19,9 @@
     <%= render 'layouts/header' %>
       <main>
         <p id="notice"><%= notice %></p>
+        <div class="d-flex justify-content-center mb-2">
+          <%= render "searches/search" %> <!-- 検索 -->
+        </div>
         <%= yield %>
       </main>
     <%= render 'layouts/footer' %>
