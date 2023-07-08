@@ -26,25 +26,12 @@
         </td>
         <td><%= book.body %></td>
 
-        <td>
-          <!-- 「いいね」機能の追加 -->
-          <% if book.favorited_by?(current_user) %>
-          <p>
-            <%= link_to book_favorites_path(book), method: :delete do %>
-              ♥<%= book.favorites.count %>
-            <% end %>
-          </p>
-          <% else %>
-          <p>
-            <%= link_to book_favorites_path(book), method: :post do %>
-              ♡<%= book.favorites.count %>
-            <% end %>
-          </p>
-          <% end %>
+        <td id="favorite_btn_<%= book.id %>">
+          <%= render "favorites/btn", book: book %>
         </td>
         <td>
           <!-- コメントの件数表示 -->
-          <p>コメント数：<%= book.book_comment.count %></p>
+          <p>コメント数：<%= book.book_comments.count %></p>
         </td>
       </tr>
     <% end %>
